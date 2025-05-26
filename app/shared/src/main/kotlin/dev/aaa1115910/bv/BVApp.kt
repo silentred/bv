@@ -107,7 +107,7 @@ class BVApp : Application() {
         instance = this
         updateMigration()
         HttpServer.startServer()
-        updateBlacklist()
+        // updateBlacklist()
     }
 
     fun initRepository() {
@@ -164,8 +164,8 @@ class BVApp : Application() {
 
     private fun updateBlacklist() {
         CoroutineScope(Dispatchers.IO).launch {
-            BlacklistUtil.updateBlacklist(context)
-            BlacklistUtil.checkUid(Prefs.uid)
+            // BlacklistUtil.updateBlacklist(context)
+            // BlacklistUtil.checkUid(Prefs.uid)
         }
     }
 }

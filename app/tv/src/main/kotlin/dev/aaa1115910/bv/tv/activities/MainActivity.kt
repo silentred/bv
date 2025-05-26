@@ -16,7 +16,6 @@ import dev.aaa1115910.bv.tv.screens.MainScreen
 import dev.aaa1115910.bv.tv.screens.RegionBlockScreen
 import dev.aaa1115910.bv.tv.screens.user.lock.UnlockUserScreen
 import dev.aaa1115910.bv.ui.theme.BVTheme
-import dev.aaa1115910.bv.util.NetworkUtil
 import io.github.oshai.kotlinlogging.KotlinLogging
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -53,7 +52,7 @@ class MainActivity : ComponentActivity() {
 
             LaunchedEffect(Unit) {
                 scope.launch(Dispatchers.Default) {
-                    isMainlandChina = NetworkUtil.isMainlandChina()
+                    isMainlandChina = false
                     isCheckingNetwork = false
                     keepSplashScreen = false
                 }
