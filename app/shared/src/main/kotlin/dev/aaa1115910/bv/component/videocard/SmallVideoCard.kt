@@ -290,11 +290,11 @@ private fun CardInfo(
     upName: String
 ) {
     Column(
-        modifier = modifier.padding(8.dp)
+        modifier = modifier.padding(4.dp)
     ) {
         Text(
             text = title,
-            style = MaterialTheme.typography.titleMedium,
+            style = MaterialTheme.typography.titleSmall,
             maxLines = 1,
             overflow = TextOverflow.Ellipsis
         )
@@ -305,7 +305,7 @@ private fun CardInfo(
             UpIcon()
             Text(
                 text = upName,
-                style = MaterialTheme.typography.labelMedium,
+                style = MaterialTheme.typography.labelSmall,
                 maxLines = 1,
                 overflow = TextOverflow.Ellipsis
             )

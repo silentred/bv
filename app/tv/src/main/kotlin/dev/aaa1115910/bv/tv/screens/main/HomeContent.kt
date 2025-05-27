@@ -50,7 +50,6 @@ fun HomeContent(
     dynamicViewModel: DynamicViewModel = koinViewModel(),
     userViewModel: UserViewModel = koinViewModel()
 ) {
-    val context = LocalContext.current
     val scope = rememberCoroutineScope()
     val logger = KotlinLogging.logger("HomeContent")
 

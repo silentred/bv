@@ -29,6 +29,8 @@ import dev.aaa1115910.bv.viewmodel.home.PopularViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import org.koin.androidx.compose.koinViewModel
+import androidx.compose.ui.res.dimensionResource
+import dev.aaa1115910.bv.tv.R
 
 @Composable
 fun PopularScreen(
@@ -42,6 +44,8 @@ fun PopularScreen(
     val shouldLoadMore by remember {
         derivedStateOf { currentFocusedIndex + 24 > popularViewModel.popularVideoList.size }
     }
+    val padding = dimensionResource(R.dimen.grid_padding)
+    val spacedBy = dimensionResource(R.dimen.grid_spacedBy)
 
     val onClickVideo: (UgcItem) -> Unit = { ugcItem ->
         VideoInfoActivity.actionStart(context, ugcItem.aid)
@@ -66,8 +70,8 @@ fun PopularScreen(
             columnCount = 4,
             modifier = Modifier
                 .width(880.dp)
-                .padding(horizontal = 24.dp, vertical = 12.dp),
-            horizontalArrangement = Arrangement.spacedBy(24.dp),
+                .padding(padding),
+            horizontalArrangement = Arrangement.spacedBy(spacedBy),
             itemContent = { index, item ->
                 SmallVideoCard(
                     data = VideoCardData(

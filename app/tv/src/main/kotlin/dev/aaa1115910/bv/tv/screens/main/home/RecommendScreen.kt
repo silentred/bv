@@ -29,6 +29,8 @@ import dev.aaa1115910.bv.viewmodel.home.RecommendViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import org.koin.androidx.compose.koinViewModel
+import androidx.compose.ui.res.dimensionResource
+import dev.aaa1115910.bv.tv.R
 
 @Composable
 fun RecommendScreen(
@@ -46,6 +48,9 @@ fun RecommendScreen(
     val onClickVideo: (UgcItem) -> Unit = { ugcItem ->
         VideoInfoActivity.actionStart(context, ugcItem.aid)
     }
+
+    val padding = dimensionResource(R.dimen.grid_padding)
+    val spacedBy = dimensionResource(R.dimen.grid_spacedBy)
 
     //不能直接使用 LaunchedEffect(currentFocusedIndex)，会导致整个页面重组
     LaunchedEffect(shouldLoadMore) {
@@ -67,8 +72,8 @@ fun RecommendScreen(
             columnCount = 4,
             modifier = Modifier
                 .width(880.dp)
-                .padding(horizontal = 24.dp, vertical = 12.dp),
-            horizontalArrangement = Arrangement.spacedBy(24.dp),
+                .padding(padding),
+            horizontalArrangement = Arrangement.spacedBy(spacedBy),
             itemContent = { index, item ->
                 SmallVideoCard(
                     data = VideoCardData(
