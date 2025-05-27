@@ -78,7 +78,7 @@ fun MainScreen(
 
     val handleBack = {
         val currentTime = System.currentTimeMillis()
-        if (currentTime - lastPressBack < 1000 * 3) {
+        if (currentTime - lastPressBack < 1500 ) {
             logger.fInfo { "Exiting bug video" }
             (context as Activity).finish()
         } else {

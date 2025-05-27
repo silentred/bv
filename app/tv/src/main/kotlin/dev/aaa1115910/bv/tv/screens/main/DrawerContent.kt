@@ -128,15 +128,17 @@ fun NavigationDrawerScope.DrawerContent(
                 maxLines = 1
             )
         }
+
+        // 侧边栏 Items
         LazyColumn(
             modifier = Modifier.focusRestorer(centerFocusRequester),
             verticalArrangement = Arrangement.Center
         ) {
             listOf(
-                DrawerItem.Search,
                 DrawerItem.Home,
                 DrawerItem.UGC,
                 DrawerItem.PGC,
+                DrawerItem.Search,
             ).forEach { item ->
                 item {
                     NavigationDrawerItem(
@@ -160,6 +162,8 @@ fun NavigationDrawerScope.DrawerContent(
                 }
             }
         }
+
+        // 设置
         NavigationDrawerItem(
             modifier = Modifier,
             onClick = onOpenSettings,
