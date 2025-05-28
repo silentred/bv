@@ -28,7 +28,7 @@ import dev.aaa1115910.bv.entity.carddata.VideoCardData
 import dev.aaa1115910.bv.entity.proxy.ProxyArea
 import dev.aaa1115910.bv.tv.activities.video.VideoInfoActivity
 import dev.aaa1115910.bv.tv.screens.main.ugc.gridItems
-import dev.aaa1115910.bv.viewmodel.home.DynamicViewModel
+import dev.aaa1115910.bv.viewmodel.home.UserFeedsViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import org.koin.androidx.compose.koinViewModel
@@ -39,15 +39,16 @@ import dev.aaa1115910.bv.tv.R
 fun DynamicsScreen(
     modifier: Modifier = Modifier,
     lazyListState: LazyListState,
-    dynamicViewModel: DynamicViewModel = koinViewModel()
+    userFeedsViewModel: UserFeedsViewModel = koinViewModel()
 ) {
     val context = LocalContext.current
     val scope = rememberCoroutineScope()
     var currentFocusedIndex by remember { mutableIntStateOf(0) }
     val shouldLoadMore by remember {
-        derivedStateOf { currentFocusedIndex + 24 > dynamicViewModel.dynamicVideoList.size }
+        derivedStateOf { currentFocusedIndex + 24 > userFeedsViewModel.dynamicVideoList.size }
     }
     val padding = dimensionResource(R.dimen.grid_padding)
+    val paddingHorizon = dimensionResource(R.dimen.grid_padding_horizon)
     val spacedBy = dimensionResource(R.dimen.grid_spacedBy)
 
     val onClickVideo: (DynamicVideo) -> Unit = { dynamic ->
@@ -62,24 +63,24 @@ fun DynamicsScreen(
     LaunchedEffect(shouldLoadMore) {
         if (shouldLoadMore) {
             scope.launch(Dispatchers.IO) {
-                dynamicViewModel.loadMoreVideo()
+                userFeedsViewModel.loadMoreVideo()
                 //加载完成后重置shouldLoadMore为false，避免如果加载失败后无法重新加载
                 currentFocusedIndex = -100
             }
         }
     }
 
-    if (dynamicViewModel.isLogin) {
+    if (userFeedsViewModel.isLogin) {
         LazyColumn(
             modifier = modifier,
             state = lazyListState
         ) {
             gridItems(
-                data = dynamicViewModel.dynamicVideoList,
+                data = userFeedsViewModel.dynamicVideoList,
                 columnCount = 4,
                 modifier = Modifier
                     .width(880.dp)
-                    .padding(padding),
+                    .padding(horizontal = paddingHorizon, vertical = padding),
                 horizontalArrangement = Arrangement.spacedBy(spacedBy),
                 itemContent = { index, item ->
                     SmallVideoCard(
@@ -98,7 +99,7 @@ fun DynamicsScreen(
                 }
             )
 
-            if (dynamicViewModel.loadingVideo)
+            if (userFeedsViewModel.loadingVideo)
                 item {
                     Box(
                         modifier = Modifier.fillMaxSize(),
@@ -108,7 +109,7 @@ fun DynamicsScreen(
                     }
                 }
 
-            if (!dynamicViewModel.videoHasMore)
+            if (!userFeedsViewModel.videoHasMore)
                 item {
                     Text(
                         text = "没有更多了捏",

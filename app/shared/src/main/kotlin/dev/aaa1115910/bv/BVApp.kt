@@ -29,7 +29,6 @@ import dev.aaa1115910.bv.entity.db.UserDB
 import dev.aaa1115910.bv.network.HttpServer
 import dev.aaa1115910.bv.repository.UserRepository
 import dev.aaa1115910.bv.repository.VideoInfoRepository
-import dev.aaa1115910.bv.util.BlacklistUtil
 import dev.aaa1115910.bv.util.FirebaseUtil
 import dev.aaa1115910.bv.util.LogCatcherUtil
 import dev.aaa1115910.bv.util.Prefs
@@ -41,7 +40,7 @@ import dev.aaa1115910.bv.viewmodel.TagViewModel
 import dev.aaa1115910.bv.viewmodel.UserSwitchViewModel
 import dev.aaa1115910.bv.viewmodel.UserViewModel
 import dev.aaa1115910.bv.viewmodel.VideoPlayerV3ViewModel
-import dev.aaa1115910.bv.viewmodel.home.DynamicViewModel
+import dev.aaa1115910.bv.viewmodel.home.UserFeedsViewModel
 import dev.aaa1115910.bv.viewmodel.home.PopularViewModel
 import dev.aaa1115910.bv.viewmodel.home.RecommendViewModel
 import dev.aaa1115910.bv.viewmodel.index.PgcIndexViewModel
@@ -188,7 +187,7 @@ val appModule = module {
     single { PgcRepository() }
     single { UgcRepository(get()) }
     single { CommentRepository(get(), get()) }
-    viewModel { DynamicViewModel(get(), get()) }
+    viewModel { UserFeedsViewModel(get(), get()) }
     viewModel { RecommendViewModel(get()) }
     viewModel { PopularViewModel(get()) }
     viewModel { AppQrLoginViewModel(get(), get()) }

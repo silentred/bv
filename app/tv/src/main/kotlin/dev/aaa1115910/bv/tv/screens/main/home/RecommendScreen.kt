@@ -50,6 +50,7 @@ fun RecommendScreen(
     }
 
     val padding = dimensionResource(R.dimen.grid_padding)
+    val paddingHorizon = dimensionResource(R.dimen.grid_padding_horizon)
     val spacedBy = dimensionResource(R.dimen.grid_spacedBy)
 
     //不能直接使用 LaunchedEffect(currentFocusedIndex)，会导致整个页面重组
@@ -72,7 +73,7 @@ fun RecommendScreen(
             columnCount = 4,
             modifier = Modifier
                 .width(880.dp)
-                .padding(padding),
+                .padding(horizontal = paddingHorizon, vertical = padding),
             horizontalArrangement = Arrangement.spacedBy(spacedBy),
             itemContent = { index, item ->
                 SmallVideoCard(

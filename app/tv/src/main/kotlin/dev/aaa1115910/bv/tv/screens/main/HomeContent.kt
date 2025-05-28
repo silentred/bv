@@ -23,7 +23,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.focus.onFocusChanged
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import dev.aaa1115910.bv.component.HomeTopNavItem
 import dev.aaa1115910.bv.component.TopNav
@@ -33,7 +32,7 @@ import dev.aaa1115910.bv.tv.screens.main.home.RecommendScreen
 import dev.aaa1115910.bv.util.fInfo
 import dev.aaa1115910.bv.util.requestFocus
 import dev.aaa1115910.bv.viewmodel.UserViewModel
-import dev.aaa1115910.bv.viewmodel.home.DynamicViewModel
+import dev.aaa1115910.bv.viewmodel.home.UserFeedsViewModel
 import dev.aaa1115910.bv.viewmodel.home.PopularViewModel
 import dev.aaa1115910.bv.viewmodel.home.RecommendViewModel
 import io.github.oshai.kotlinlogging.KotlinLogging
@@ -47,7 +46,7 @@ fun HomeContent(
     navFocusRequester: FocusRequester,
     recommendViewModel: RecommendViewModel = koinViewModel(),
     popularViewModel: PopularViewModel = koinViewModel(),
-    dynamicViewModel: DynamicViewModel = koinViewModel(),
+    userFeedsViewModel: UserFeedsViewModel = koinViewModel(),
     userViewModel: UserViewModel = koinViewModel()
 ) {
     val scope = rememberCoroutineScope()
@@ -83,7 +82,7 @@ fun HomeContent(
             popularViewModel.loadMore()
         }
         scope.launch(Dispatchers.IO) {
-            dynamicViewModel.loadMoreVideo()
+            userFeedsViewModel.loadMoreVideo()
         }
         scope.launch(Dispatchers.IO) {
             userViewModel.updateUserInfo()
@@ -136,8 +135,8 @@ fun HomeContent(
                         HomeTopNavItem.Recommend -> {}
                         HomeTopNavItem.Popular -> {}
                         HomeTopNavItem.UserFeeds -> {
-                            if (!dynamicViewModel.loadingVideo && dynamicViewModel.isLogin && dynamicViewModel.dynamicVideoList.isEmpty()) {
-                                scope.launch(Dispatchers.IO) { dynamicViewModel.loadMoreVideo() }
+                            if (!userFeedsViewModel.loadingVideo && userFeedsViewModel.isLogin && userFeedsViewModel.dynamicVideoList.isEmpty()) {
+                                scope.launch(Dispatchers.IO) { userFeedsViewModel.loadMoreVideo() }
                             }
                         }
                     }
@@ -160,9 +159,9 @@ fun HomeContent(
 
                         HomeTopNavItem.UserFeeds -> {
                             logger.fInfo { "clear dynamic data" }
-                            dynamicViewModel.clearVideoData()
+                            userFeedsViewModel.clearVideoData()
                             logger.fInfo { "reload dynamic data" }
-                            scope.launch(Dispatchers.IO) { dynamicViewModel.loadMoreVideo() }
+                            scope.launch(Dispatchers.IO) { userFeedsViewModel.loadMoreVideo() }
                         }
                     }
                 }

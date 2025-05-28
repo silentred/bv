@@ -41,7 +41,7 @@ import dev.aaa1115910.bv.util.fInfo
 import dev.aaa1115910.bv.util.getLane
 import dev.aaa1115910.bv.util.ifElse
 import dev.aaa1115910.bv.util.toast
-import dev.aaa1115910.bv.viewmodel.home.DynamicViewModel
+import dev.aaa1115910.bv.viewmodel.home.UserFeedsViewModel
 import io.github.oshai.kotlinlogging.KotlinLogging
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -51,7 +51,7 @@ import org.koin.androidx.compose.koinViewModel
 @Composable
 fun DynamicScreen(
     modifier: Modifier = Modifier,
-    dynamicViewModel: DynamicViewModel = koinViewModel(),
+    userFeedsViewModel: UserFeedsViewModel = koinViewModel(),
     dynamicGridState: LazyStaggeredGridState,
     previewerState: ImagePreviewerState,
     onShowPreviewer: (newPictures: List<Picture>, afterSetPictures: () -> Unit) -> Unit
@@ -97,11 +97,11 @@ fun DynamicScreen(
     }
 
     dynamicGridState.OnBottomReached(
-        loading = dynamicViewModel.loadingAll
+        loading = userFeedsViewModel.loadingAll
     ) {
         logger.fInfo { "on reached rcmd page bottom" }
         scope.launch(Dispatchers.IO) {
-            dynamicViewModel.loadMoreAll()
+            userFeedsViewModel.loadMoreAll()
         }
     }
 
@@ -134,7 +134,7 @@ fun DynamicScreen(
                 horizontalArrangement = Arrangement.spacedBy(8.dp),
                 contentPadding = PaddingValues(if (lane == 1) 0.dp else 8.dp)
             ) {
-                items(items = dynamicViewModel.dynamicAllList) { dynamicItem ->
+                items(items = userFeedsViewModel.dynamicAllList) { dynamicItem ->
                     DynamicItem(
                         modifier = Modifier
                             .ifElse(lane != 1, Modifier.clip(MaterialTheme.shapes.medium)),

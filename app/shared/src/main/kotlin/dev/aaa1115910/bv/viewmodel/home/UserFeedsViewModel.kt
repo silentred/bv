@@ -22,7 +22,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import dev.aaa1115910.bv.repository.UserRepository as BvUserRepository
 
-class DynamicViewModel(
+class UserFeedsViewModel(
     private val bvUserRepository: BvUserRepository,
     private val userRepository: UserRepository
 ) : ViewModel() {

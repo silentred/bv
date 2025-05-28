@@ -45,6 +45,7 @@ fun PopularScreen(
         derivedStateOf { currentFocusedIndex + 24 > popularViewModel.popularVideoList.size }
     }
     val padding = dimensionResource(R.dimen.grid_padding)
+    val paddingHorizon = dimensionResource(R.dimen.grid_padding_horizon)
     val spacedBy = dimensionResource(R.dimen.grid_spacedBy)
 
     val onClickVideo: (UgcItem) -> Unit = { ugcItem ->
@@ -70,7 +71,7 @@ fun PopularScreen(
             columnCount = 4,
             modifier = Modifier
                 .width(880.dp)
-                .padding(padding),
+                .padding(horizontal = paddingHorizon, vertical = padding),
             horizontalArrangement = Arrangement.spacedBy(spacedBy),
             itemContent = { index, item ->
                 SmallVideoCard(
