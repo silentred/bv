@@ -270,9 +270,9 @@ private fun ColumnScope.CardInfo(
         Text(
             modifier = Modifier,
             text = title,
-            style = MaterialTheme.typography.titleMedium,
-            maxLines = 3,
-            minLines = 3,
+            style = MaterialTheme.typography.titleSmall,
+            maxLines = 2,
+            minLines = 2,
             overflow = TextOverflow.Ellipsis,
         )
         Spacer(modifier = Modifier.height(4.dp))
