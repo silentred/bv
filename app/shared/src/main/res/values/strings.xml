@@ -688,5 +688,5 @@
     <string name="video_player_user_agent_http">Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/104.0.0.0 Safari/537.36</string>
 
 
-    <string name="about_statement">该改版是给带键鼠的安卓设备使用的，严禁tv端使用，若有tv端使用者，请在24小时内删除否则后果自负,若有tv端使用需求，请下载官方小电视！</string>
+    <string name="about_statement">此软件严禁TV端使用,请您在24小时内删除,否则后果自负\nTV端使用需求请下载官方小电视</string>
 </resources>

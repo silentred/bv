@@ -36,7 +36,8 @@ fun AboutSetting(
     LaunchedEffect(Unit) {
         launch(Dispatchers.IO) {
             runCatching {
-                latestVersionName = GithubApi.getLatestBuild().name
+                // latestVersionName = GithubApi.getLatestBuild().name
+                latestVersionName = "NotFound"
                 logger.fInfo { "Find latest version $latestVersionName" }
             }.onFailure {
                 logger.fException(it) { "Failed to get latest version" }
@@ -89,7 +90,7 @@ fun AboutSetting(
         }
         Text(
             modifier = Modifier.align(Alignment.BottomCenter),
-            text = "https://github.com/Leelion96/bv"
+            text = "https://github.com/silentred/bv"
         )
     }
 

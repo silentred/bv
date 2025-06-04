@@ -75,10 +75,15 @@ fun UpdateDialog(
 
         scope.launch(Dispatchers.IO) {
             runCatching {
-                latestReleaseBuild = GithubApi.getLatestBuild()
+                // latestReleaseBuild = GithubApi.getLatestBuild()
+                if (latestReleaseBuild == null) {
+                    updateStatus = UpdateStatus.NoAvailableUpdate
+                    return@launch
+                }
                 val revision = latestReleaseBuild!!
                     .assets.first { it.name.startsWith("BV") }
                     .name.split("_")[1].toInt()
+                logger.fInfo { "latest build revision is $revision" }
                 if (revision <= BuildConfig.VERSION_CODE) {
                     updateStatus = UpdateStatus.NoAvailableUpdate
                     return@launch
