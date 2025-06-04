@@ -6,6 +6,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.tv.material3.Button
@@ -13,7 +14,6 @@ import androidx.tv.material3.MaterialTheme
 import androidx.tv.material3.Text
 import dev.aaa1115910.bv.BuildConfig
 import dev.aaa1115910.bv.R
-import dev.aaa1115910.bv.network.GithubApi
 import dev.aaa1115910.bv.tv.component.settings.UpdateDialog
 import dev.aaa1115910.bv.tv.screens.settings.SettingsMenuNavItem
 import dev.aaa1115910.bv.ui.theme.BVTheme
@@ -65,7 +65,8 @@ fun AboutSetting(
             ) {
                 Text(
                     text = stringResource(R.string.about_statement),
-                    modifier = Modifier.padding(horizontal = 48.dp)
+                    modifier = Modifier.padding(horizontal = 48.dp),
+                    textAlign = TextAlign.Center
                 )
                 Text(
                     text = stringResource(
