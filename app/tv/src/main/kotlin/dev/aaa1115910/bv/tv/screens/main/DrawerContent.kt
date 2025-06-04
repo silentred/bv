@@ -126,10 +126,10 @@ fun DrawerContent(
         Spacer(modifier = Modifier.weight(1f))
 
         listOf(
-            DrawerItem.Search,
             DrawerItem.Home,
             DrawerItem.UGC,
             DrawerItem.PGC,
+            DrawerItem.Search,
         ).forEach { item ->
             IconButton(
                 modifier = Modifier
