@@ -1,5 +1,7 @@
 package dev.aaa1115910.bv.tv.screens.search
 
+import dev.aaa1115910.bv.tv.screens.main.*
+import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -39,9 +41,12 @@ import dev.aaa1115910.bv.R
 import dev.aaa1115910.bv.component.search.SearchKeyword
 import dev.aaa1115910.bv.component.search.SoftKeyboard
 import dev.aaa1115910.bv.tv.activities.search.SearchResultActivity
+import dev.aaa1115910.bv.tv.screens.main.DrawerItem
 import dev.aaa1115910.bv.util.Prefs
+import dev.aaa1115910.bv.util.fInfo
 import dev.aaa1115910.bv.util.ifElse
 import dev.aaa1115910.bv.viewmodel.search.SearchInputViewModel
+import io.github.oshai.kotlinlogging.KotlinLogging
 import org.koin.androidx.compose.koinViewModel
 
 @Composable
@@ -51,6 +56,7 @@ fun SearchInputScreen(
     searchInputViewModel: SearchInputViewModel = koinViewModel()
 ) {
     val context = LocalContext.current
+    val logger = KotlinLogging.logger("SearchInputScreen")
     val hotsFocusRequester = remember { FocusRequester() }
     val historyFocusRequester = remember { FocusRequester() }
     val suggestFocusRequester = remember { FocusRequester() }
@@ -72,11 +78,17 @@ fun SearchInputScreen(
         searchInputViewModel.updateSuggests()
     }
 
+    BackHandler {
+        // press back button and return to Search DrawerItem
+        drawerItemFocusRequesters[DrawerItem.Search]!!.requestFocus()
+        logger.fInfo { "handle back btn" }
+    }
+
     Scaffold(
         modifier = modifier,
         topBar = {
             Box(
-                modifier = Modifier.padding(start = 48.dp, top = 24.dp, bottom = 8.dp, end = 48.dp)
+                modifier = Modifier.padding(start = 48.dp, top = 16.dp, bottom = 8.dp, end = 48.dp)
             ) {
                 Row(
                     modifier = Modifier.fillMaxWidth(),
@@ -85,7 +97,7 @@ fun SearchInputScreen(
                 ) {
                     Text(
                         text = stringResource(R.string.search_input_title),
-                        fontSize = 48.sp
+                        fontSize = 36.sp
                     )
                 }
             }
