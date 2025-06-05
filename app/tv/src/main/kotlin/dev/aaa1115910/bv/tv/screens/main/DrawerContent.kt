@@ -127,6 +127,7 @@ fun DrawerContent(
 
         listOf(
             DrawerItem.Home,
+            DrawerItem.Live,
             DrawerItem.UGC,
             DrawerItem.PGC,
             DrawerItem.Search,
@@ -180,7 +181,8 @@ enum class DrawerItem(
     Home(displayName = "首页", displayIcon = Icons.Default.Home),
     UGC(displayName = "UGC", displayIcon = Icons.Default.OndemandVideo),
     PGC(displayName = "PGC", displayIcon = Icons.Default.Movie),
-    Settings(displayName = "设置", displayIcon = Icons.Default.Settings), ;
+    Settings(displayName = "设置", displayIcon = Icons.Default.Settings),
+    Live(displayName = "直播", displayIcon = Icons.Default.VideoCameraFront),
 }
 
 @Preview(device = "id:tv_1080p")

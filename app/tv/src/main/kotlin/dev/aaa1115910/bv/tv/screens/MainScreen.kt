@@ -27,6 +27,7 @@ import dev.aaa1115910.bv.tv.screens.settings.SettingsScreen
 import dev.aaa1115910.bv.util.Prefs
 import dev.aaa1115910.bv.util.fException
 import dev.aaa1115910.bv.util.fInfo
+import dev.aaa1115910.bv.util.requestFocus
 import dev.aaa1115910.bv.util.toast
 import dev.aaa1115910.bv.viewmodel.UserViewModel
 import io.github.oshai.kotlinlogging.KotlinLogging
@@ -49,6 +50,7 @@ fun MainScreen(
     val pgcFocusRequester = remember { FocusRequester() }
     val searchFocusRequester = remember { FocusRequester() }
     val settingFocusRequester = remember { FocusRequester() }
+    val liveRoomFocusRequester = remember { FocusRequester() }
 
     val handleBack = {
         val currentTime = System.currentTimeMillis()
@@ -76,6 +78,7 @@ fun MainScreen(
             DrawerItem.PGC -> pgcFocusRequester.requestFocus()
             DrawerItem.Search -> searchFocusRequester.requestFocus()
             DrawerItem.Settings -> settingFocusRequester.requestFocus()
+            DrawerItem.Live -> liveRoomFocusRequester.requestFocus()
             else -> {}
         }
     }
@@ -153,6 +156,7 @@ fun MainScreen(
                         DrawerItem.PGC -> PgcContent(contentFocusRequester = pgcFocusRequester)
                         DrawerItem.Search -> SearchInputScreen(defaultFocusRequester = searchFocusRequester)
                         DrawerItem.Settings -> SettingsScreen(defaultFocusRequester = settingFocusRequester)
+                        DrawerItem.Live -> LiveContent(contentFocusRequester = liveRoomFocusRequester,)
                         else -> {}
                     }
                 }

@@ -124,6 +124,15 @@ interface TopNavItem {
     fun getDisplayName(context: Context = BVApp.context): String
 }
 
+enum class LiveTopNavItem(private val displayName: String) : TopNavItem {
+    Recommends("推荐"),
+    Followed("关注");
+
+    override fun getDisplayName(context: Context): String {
+        return displayName
+    }
+}
+
 enum class HomeTopNavItem(private val displayName: String) : TopNavItem {
     Recommend("推荐"),
     Popular("热门"),
