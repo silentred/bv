@@ -16,11 +16,39 @@ import androidx.tv.material3.MaterialTheme
 import androidx.tv.material3.Surface
 import androidx.tv.material3.Text
 import androidx.tv.material3.darkColorScheme
+import dev.aaa1115910.bv.player.entity.VideoPlayerSeekData
 import dev.aaa1115910.bv.player.seekbar.SeekBar
 import dev.aaa1115910.bv.player.seekbar.SeekBarThumb
 import dev.aaa1115910.bv.player.seekbar.SeekMoveState
 import dev.aaa1115910.bv.util.formatMinSec
 import kotlin.math.max
+
+@Composable
+fun VideoSeekBar(
+    modifier: Modifier = Modifier,
+    seekDataLambda: ()-> VideoPlayerSeekData,
+    idleIcon: String = "",
+    movingIcon: String = "",
+    moveState: SeekMoveState = SeekMoveState.Idle,
+    showPosition: Boolean = false
+) {
+    val seekData = seekDataLambda()
+    VideoSeekBar(
+        modifier = modifier,
+        duration = seekData.duration,
+        position = seekData.position,
+        bufferedPercentage = seekData.bufferedPercentage,
+        showPosition = showPosition,
+        thumb = { thumbModifier ->
+            SeekBarThumb(
+                modifier = thumbModifier,
+                state = moveState,
+                idleJsonUrl = idleIcon,
+                movingJsonUrl = movingIcon
+            )
+        }
+    )
+}
 
 @Composable
 fun VideoSeekBar(

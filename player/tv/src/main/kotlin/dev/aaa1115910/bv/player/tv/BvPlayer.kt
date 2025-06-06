@@ -8,18 +8,8 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.CompositionLocalProvider
-import androidx.compose.runtime.DisposableEffect
-import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableFloatStateOf
-import androidx.compose.runtime.mutableLongStateOf
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.*
 import androidx.compose.runtime.saveable.rememberSaveable
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
@@ -39,34 +29,10 @@ import dev.aaa1115910.bv.player.AbstractVideoPlayer
 import dev.aaa1115910.bv.player.AkDanmakuPlayer
 import dev.aaa1115910.bv.player.BvVideoPlayer
 import dev.aaa1115910.bv.player.VideoPlayerListener
-import dev.aaa1115910.bv.player.entity.Audio
-import dev.aaa1115910.bv.player.entity.DanmakuType
-import dev.aaa1115910.bv.player.entity.LocalVideoPlayerClockData
-import dev.aaa1115910.bv.player.entity.LocalVideoPlayerConfigData
-import dev.aaa1115910.bv.player.entity.LocalVideoPlayerDanmakuMasksData
-import dev.aaa1115910.bv.player.entity.LocalVideoPlayerDebugInfoData
-import dev.aaa1115910.bv.player.entity.LocalVideoPlayerHistoryData
-import dev.aaa1115910.bv.player.entity.LocalVideoPlayerLoadStateData
-import dev.aaa1115910.bv.player.entity.LocalVideoPlayerLogsData
-import dev.aaa1115910.bv.player.entity.LocalVideoPlayerSeekData
-import dev.aaa1115910.bv.player.entity.LocalVideoPlayerStateData
-import dev.aaa1115910.bv.player.entity.LocalVideoPlayerVideoInfoData
-import dev.aaa1115910.bv.player.entity.RequestState
-import dev.aaa1115910.bv.player.entity.Resolution
-import dev.aaa1115910.bv.player.entity.VideoAspectRatio
-import dev.aaa1115910.bv.player.entity.VideoCodec
-import dev.aaa1115910.bv.player.entity.VideoListItem
-import dev.aaa1115910.bv.player.entity.VideoPlayerClockData
-import dev.aaa1115910.bv.player.entity.VideoPlayerDebugInfoData
-import dev.aaa1115910.bv.player.entity.VideoPlayerSeekData
-import dev.aaa1115910.bv.player.entity.VideoPlayerStateData
+import dev.aaa1115910.bv.player.entity.*
 import dev.aaa1115910.bv.player.tv.controller.VideoPlayerController
 import dev.aaa1115910.bv.player.util.danmakuMask
-import dev.aaa1115910.bv.util.countDownTimer
-import dev.aaa1115910.bv.util.fInfo
-import dev.aaa1115910.bv.util.formatMinSec
-import dev.aaa1115910.bv.util.ifElse
-import dev.aaa1115910.bv.util.timeTask
+import dev.aaa1115910.bv.util.*
 import io.github.oshai.kotlinlogging.KotlinLogging
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -79,6 +45,7 @@ import kotlin.math.max
 fun BvPlayer(
     modifier: Modifier = Modifier,
     videoPlayer: AbstractVideoPlayer,
+    isShowDanmakuLambda: () -> Boolean,
     danmakuPlayer: DanmakuPlayer?,
     onSendHeartbeat: suspend (Int) -> Unit,
     onClearBackToHistoryData: () -> Unit,
@@ -95,6 +62,7 @@ fun BvPlayer(
     onDanmakuOpacityChange: (Float) -> Unit,
     onDanmakuAreaChange: (Float) -> Unit,
     onDanmakuMaskChange: (Boolean) -> Unit,
+    onToggleDanmaku: () -> Unit,
     onSubtitleChange: (Subtitle) -> Unit,
     onSubtitleSizeChange: (TextUnit) -> Unit,
     onSubtitleBackgroundOpacityChange: (Float) -> Unit,
@@ -149,6 +117,8 @@ fun BvPlayer(
     var hideBackToHistoryTimer: CountDownTimer? by remember { mutableStateOf(null) }
 
     var currentDanmakuMaskFrame: DanmakuMaskFrame? by remember { mutableStateOf(null) }
+
+    var isShowDanmaku by rememberSaveable { mutableStateOf(isShowDanmakuLambda()) }
 
     val updateSeek = {
         currentPosition = videoPlayer.currentPosition.coerceAtLeast(0L)
@@ -504,6 +474,8 @@ fun BvPlayer(
             modifier = modifier
                 .focusRequester(focusRequester),
             videoPlayer = videoPlayer,
+            isPlayingLambda = { isPlaying },
+            isShowDanmakuLambda = { isShowDanmaku },
 
             onPlay = { videoPlayer.start() },
             onPause = {
@@ -613,6 +585,11 @@ fun BvPlayer(
                 logger.info { "On danmaku mask change: $mask" }
                 onDanmakuMaskChange(mask)
             },
+            onToggleDanmaku = {
+                logger.info { "On danmaku toggle" }
+                isShowDanmaku = !isShowDanmaku
+                onToggleDanmaku()
+            },
             onSubtitleChange = { subtitle ->
                 onSubtitleChange(subtitle)
             },
@@ -647,7 +624,7 @@ fun BvPlayer(
                 modifier = Modifier
                     .align(Alignment.TopCenter)
                     .fillMaxWidth()
-                    .fillMaxHeight(videoPlayerConfigData.currentDanmakuArea)
+                    .fillMaxHeight(if (isShowDanmaku) videoPlayerConfigData.currentDanmakuArea else 0f)
                     .fillMaxHeight()
                     .alpha(videoPlayerConfigData.currentDanmakuOpacity)
                     .ifElse(

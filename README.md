@@ -19,6 +19,8 @@ BV 是一款 [哔哩哔哩](https://www.bilibili.com) 的第三方 `Android` 应
 ![screenshots.webp](screenshots.webp)
 增加个人页
 ![screenshots.webp](screenshots1.webp)
+播放页信息栏内容优化，增加底部快捷操作栏，包含一键开关弹幕、投币点赞（还在施工中）
+![screenshots.webp](screenshots2.webp)
 
 [//]: # (<img alt="新增个人页" src="screenshots1.webp" width="500" />)
 
@@ -40,6 +42,7 @@ BV 是一款 [哔哩哔哩](https://www.bilibili.com) 的第三方 `Android` 应
 8. 屏蔽移动端入口，只进入TV端（原作者的移动端支持还在搭建中，暂时先不开放）
 9. 在视频信息页增加点赞、投币入口（fork自@Frost Hu、感谢此作者）
 10. 修改默认弹幕大小透明度为0.75，显示区域为40%、播放时出现信息时返回键关闭信息区域、精简初始化播放过程的日志
+11. 播放页信息栏内容优化，增加底部快捷操作栏，包含一键开关弹幕、投币点赞（还在施工中）
 
 ### 待处理的Todo
 1. 播放页内增加点赞投币等操作入口

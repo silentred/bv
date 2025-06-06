@@ -83,6 +83,14 @@ object Prefs {
         }
         set(value) = runBlocking { dsm.editPreference(PrefKeys.prefDefaultAudioKey, value.code) }
 
+    var defaultDanmakuVisible: Boolean
+        get() = runBlocking {
+            dsm.getPreferenceFlow(PrefKeys.prefDefaultDanmakuVisibilityRequest).first()
+        }
+        set(value) = runBlocking {
+            dsm.editPreference(PrefKeys.prefDefaultDanmakuVisibilityKey, value)
+        }
+
     var defaultDanmakuSize: Int
         get() = runBlocking {
             dsm.getPreferenceFlow(PrefKeys.prefDefaultDanmakuSizeRequest).first()
@@ -324,6 +332,7 @@ object PrefKeys {
     val prefDefaultQualityKey = intPreferencesKey("dq")
     val prefDefaultAudioKey = intPreferencesKey("da")
     val prefDefaultPlaySpeedKey = floatPreferencesKey("dps")
+    val prefDefaultDanmakuVisibilityKey = booleanPreferencesKey("ddv")
     val prefDefaultDanmakuSizeKey = intPreferencesKey("dds")
     val prefDefaultDanmakuScaleKey = floatPreferencesKey("dds2")
     val prefDefaultDanmakuTransparencyKey = intPreferencesKey("ddt")
@@ -368,6 +377,7 @@ object PrefKeys {
     val prefDefaultPlaySpeedRequest = PreferenceRequest(prefDefaultPlaySpeedKey, 1f)
     val prefDefaultQualityRequest = PreferenceRequest(prefDefaultQualityKey, Resolution.R1080P.code)
     val prefDefaultAudioRequest = PreferenceRequest(prefDefaultAudioKey, Audio.A192K.code)
+    val prefDefaultDanmakuVisibilityRequest = PreferenceRequest(prefDefaultDanmakuVisibilityKey, true)
     val prefDefaultDanmakuSizeRequest = PreferenceRequest(prefDefaultDanmakuSizeKey, 6)
     val prefDefaultDanmakuScaleRequest = PreferenceRequest(prefDefaultDanmakuScaleKey, 0.75f)
     val prefDefaultDanmakuTransparencyRequest =

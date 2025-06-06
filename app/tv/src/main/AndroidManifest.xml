@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    tools:ignore="MissingLeanbackLauncher">
+    xmlns:tools="http://schemas.android.com/tools">
 
     <uses-feature
         android:name="android.software.leanback"
@@ -16,138 +15,161 @@
             android:enableOnBackInvokedCallback="false"
             android:exported="true"
             android:label="@string/title_activity_user_lock_settings"
+            android:screenOrientation="landscape"
             android:theme="@style/Theme.BV.TV" />
         <activity
             android:name=".activities.video.RemoteControllerPanelDemoActivity"
             android:enableOnBackInvokedCallback="false"
             android:exported="false"
             android:label="@string/title_activity_remote_controller_panel_demo"
+            android:screenOrientation="landscape"
             android:theme="@style/Theme.BV.TV" />
         <activity
             android:name=".activities.settings.LogsActivity"
             android:enableOnBackInvokedCallback="false"
             android:exported="false"
             android:label="@string/title_activity_logs"
+            android:screenOrientation="landscape"
             android:theme="@style/Theme.BV.TV" />
         <activity
             android:name=".activities.user.UserSwitchActivity"
             android:enableOnBackInvokedCallback="false"
             android:exported="true"
             android:label="@string/title_activity_user_switch"
+            android:screenOrientation="landscape"
             android:theme="@style/Theme.BV.TV" />
         <activity
             android:name=".activities.settings.MediaCodecActivity"
             android:enableOnBackInvokedCallback="false"
             android:exported="true"
             android:label="@string/title_activity_media_codec"
+            android:screenOrientation="landscape"
             android:theme="@style/Theme.BV.TV" />
         <activity
             android:name=".activities.video.VideoPlayerV3Activity"
             android:enableOnBackInvokedCallback="false"
             android:exported="true"
             android:label="@string/title_activity_video_player_v3"
+            android:screenOrientation="landscape"
             android:theme="@style/Theme.BV.TV" />
         <activity
             android:name=".activities.video.TagActivity"
             android:enableOnBackInvokedCallback="false"
             android:exported="false"
             android:label="@string/title_activity_tag"
+            android:screenOrientation="landscape"
             android:theme="@style/Theme.BV.TV" />
         <activity
             android:name=".activities.pgc.PgcIndexActivity"
             android:enableOnBackInvokedCallback="false"
             android:exported="false"
             android:label="@string/title_activity_pgc_index"
+            android:screenOrientation="landscape"
             android:theme="@style/Theme.BV.TV" />
         <activity
             android:name=".activities.user.FollowingSeasonActivity"
             android:enableOnBackInvokedCallback="false"
             android:exported="false"
             android:label="@string/title_activity_following_season"
+            android:screenOrientation="landscape"
             android:theme="@style/Theme.BV.TV" />
         <activity
             android:name=".activities.pgc.anime.AnimeTimelineActivity"
             android:enableOnBackInvokedCallback="false"
             android:exported="false"
             android:label="@string/title_activity_anime_timeline"
+            android:screenOrientation="landscape"
             android:theme="@style/Theme.BV.TV" />
         <activity
             android:name=".activities.search.SearchResultActivity"
             android:enableOnBackInvokedCallback="false"
             android:exported="false"
             android:label="@string/title_activity_search_result"
+            android:screenOrientation="landscape"
             android:theme="@style/Theme.BV.TV" />
         <activity
             android:name=".activities.search.SearchInputActivity"
             android:enableOnBackInvokedCallback="false"
             android:exported="false"
             android:label="@string/title_activity_search_input"
+            android:screenOrientation="landscape"
             android:theme="@style/Theme.BV.TV" />
         <activity
             android:name=".activities.user.FollowActivity"
             android:enableOnBackInvokedCallback="false"
             android:exported="false"
             android:label="@string/title_activity_follow"
+            android:screenOrientation="landscape"
             android:theme="@style/Theme.BV.TV" />
         <activity
             android:name=".activities.video.SeasonInfoActivity"
             android:enableOnBackInvokedCallback="false"
             android:exported="false"
             android:label="@string/title_activity_season_info"
+            android:screenOrientation="landscape"
             android:theme="@style/Theme.BV.TV" />
         <activity
             android:name=".activities.settings.SpeedTestActivity"
             android:enableOnBackInvokedCallback="false"
             android:exported="false"
             android:label="@string/title_activity_speed_test"
+            android:screenOrientation="landscape"
             android:theme="@style/Theme.BV.TV" />
         <activity
             android:name=".activities.user.FavoriteActivity"
             android:enableOnBackInvokedCallback="false"
             android:exported="false"
             android:label="@string/title_activity_favorite"
+            android:screenOrientation="landscape"
             android:theme="@style/Theme.BV.TV" />
         <activity
             android:name=".activities.video.UpInfoActivity"
             android:enableOnBackInvokedCallback="false"
             android:exported="false"
             android:label="@string/title_activity_up_info"
+            android:screenOrientation="landscape"
             android:theme="@style/Theme.BV.TV" />
         <activity
             android:name=".activities.settings.SettingsActivity"
             android:enableOnBackInvokedCallback="false"
             android:exported="false"
             android:label="@string/title_activity_settings"
+            android:screenOrientation="landscape"
             android:theme="@style/Theme.BV.TV" />
         <activity
             android:name=".activities.user.HistoryActivity"
             android:enableOnBackInvokedCallback="false"
             android:exported="false"
             android:label="@string/title_activity_history"
+            android:screenOrientation="landscape"
             android:theme="@style/Theme.BV.TV" />
         <activity
             android:name=".activities.user.ToViewActivity"
             android:enableOnBackInvokedCallback="false"
             android:exported="false"
             android:label="@string/title_activity_toview"
+            android:screenOrientation="landscape"
             android:theme="@style/Theme.BV.TV" />
         <activity
             android:name=".activities.user.UserInfoActivity"
             android:enableOnBackInvokedCallback="false"
             android:exported="false"
             android:label="@string/title_activity_user_info"
+            android:screenOrientation="landscape"
             android:theme="@style/Theme.BV.TV" />
         <activity
             android:name=".activities.user.LoginActivity"
             android:enableOnBackInvokedCallback="false"
             android:exported="false"
             android:label="@string/title_activity_login"
+            android:screenOrientation="landscape"
             android:theme="@style/Theme.BV.TV" />
         <activity
             android:name=".activities.video.VideoInfoActivity"
             android:enableOnBackInvokedCallback="false"
             android:exported="false"
             android:label="@string/title_activity_video_info"
+            android:screenOrientation="landscape"
             android:theme="@style/Theme.BV.TV" />
         <activity
             android:name="dev.aaa1115910.bv.tv.activities.MainActivity"
@@ -158,7 +180,9 @@
             android:theme="@style/Theme.BV.TV.Splash">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
+                <category android:name="android.intent.category.LEANBACK_LAUNCHER" />
             </intent-filter>
         </activity>
     </application>

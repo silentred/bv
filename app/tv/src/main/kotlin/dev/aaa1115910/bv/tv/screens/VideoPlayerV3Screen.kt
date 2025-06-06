@@ -86,6 +86,7 @@ fun VideoPlayerV3Screen(
     ) {
         BvPlayer(
             modifier = modifier.fillMaxSize(),
+            isShowDanmakuLambda = { Prefs.defaultDanmakuVisible },
             videoPlayer = playerViewModel.videoPlayer!!,
             danmakuPlayer = playerViewModel.danmakuPlayer,
             onSendHeartbeat = playerViewModel::uploadHistory,
@@ -185,6 +186,9 @@ fun VideoPlayerV3Screen(
             onDanmakuMaskChange = { mask ->
                 Prefs.defaultDanmakuMask = mask
                 playerViewModel.currentDanmakuMask = mask
+            },
+            onToggleDanmaku = {
+                Prefs.defaultDanmakuVisible = !Prefs.defaultDanmakuVisible
             },
             onSubtitleChange = { subtitle ->
                 playerViewModel.loadSubtitle(subtitle.id)

@@ -3,24 +3,11 @@ package dev.aaa1115910.bv.player.tv.controller
 import android.graphics.BitmapFactory
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.Pause
 import androidx.compose.material3.CircularProgressIndicator
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.rememberCoroutineScope
-import androidx.compose.runtime.setValue
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -29,12 +16,7 @@ import androidx.compose.ui.graphics.asImageBitmap
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.tv.material3.Icon
-import androidx.tv.material3.MaterialTheme
-import androidx.tv.material3.Surface
-import androidx.tv.material3.SurfaceDefaults
-import androidx.tv.material3.Text
-import androidx.tv.material3.darkColorScheme
+import androidx.tv.material3.*
 import dev.aaa1115910.bv.player.entity.LocalVideoPlayerPaymentData
 import dev.aaa1115910.bv.player.entity.LocalVideoPlayerStateData
 import io.github.g0dkar.qrcode.QRCode
@@ -45,7 +27,8 @@ import java.io.ByteArrayOutputStream
 
 @Composable
 fun PlayStateTips(
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    showInfoLambda: () -> Boolean
 ) {
     val videoPlayerStateData = LocalVideoPlayerStateData.current
     val videoPlayerPaymentData = LocalVideoPlayerPaymentData.current
@@ -53,7 +36,7 @@ fun PlayStateTips(
     Box(
         modifier = modifier.fillMaxSize()
     ) {
-        if (!videoPlayerStateData.isPlaying && !videoPlayerStateData.isBuffering && !videoPlayerStateData.isError) {
+        if (!showInfoLambda() && !videoPlayerStateData.isPlaying && !videoPlayerStateData.isBuffering && !videoPlayerStateData.isError) {
             PauseIcon(
                 modifier = Modifier
                     .align(Alignment.BottomEnd)
