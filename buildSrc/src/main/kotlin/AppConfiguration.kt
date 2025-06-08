@@ -26,7 +26,9 @@ object AppConfiguration {
     }
 
     private fun initConfigurations() {
-        val googleServicesJsonPath = "pwd".exec() + "/app/google-services.json"
+        val googleServicesJsonPath = if (!isWin())  {
+            "pwd".exec() + "/app/google-services.json"
+        } else { "app/google-services.json" }
         val googleServicesJsonFile = File(googleServicesJsonPath)
         googleServicesAvailable =
             googleServicesJsonFile.exists() && googleServicesJsonFile.readText().let {
@@ -36,3 +38,8 @@ object AppConfiguration {
 }
 
 fun String.exec() = String(Runtime.getRuntime().exec(this).inputStream.readBytes()).trim()
+
+fun isWin() : Boolean {
+    val osName = System.getProperty("os.name").lowercase()
+    return osName.contains("win")
+}
