@@ -500,7 +500,7 @@ class VideoPlayerV3ViewModel(
 
     fun loadSubtitle(id: Long) {
         viewModelScope.launch(Dispatchers.IO) {
-            if (id == 0L) {
+            if (id == -1L) {
                 withContext(Dispatchers.Main) {
                     currentSubtitleData.clear()
                     currentSubtitleId = -1
