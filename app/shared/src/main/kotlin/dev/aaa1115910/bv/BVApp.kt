@@ -67,7 +67,7 @@ class BVApp : Application() {
             androidContext(this@BVApp)
             modules(appModule)
         }
-        FirebaseUtil.init(applicationContext)
+        initFirebase()
         LogCatcherUtil.installLogCatcher()
         initRepository()
         initProxy()
@@ -75,6 +75,14 @@ class BVApp : Application() {
         updateMigration()
         HttpServer.startServer()
         updateBlacklist()
+    }
+
+    private fun initFirebase() {
+        FirebaseUtil.init(applicationContext)
+        when (BuildConfig.BUILD_TYPE) {
+            "debug" -> {}
+            else -> FirebaseUtil.setCrashlyticsCollectionEnabled(Prefs.enableFirebaseCollection)
+        }
     }
 
     fun initRepository() {
