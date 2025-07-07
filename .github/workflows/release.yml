@@ -3,7 +3,7 @@ name: Release Build
 on:
   push:
     branches:
-      - 'release'
+      - 'mybv'
     tags:
       - 'v[0-9]+.[0-9]+.[0-9]+'
       - 'v[0-9]+.[0-9]+.[0-9]+.[0-9]+'
@@ -18,8 +18,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
         with:
-          ref: master
-          fetch-depth: 0
+          fetch-depth: 1
           submodules: 'true'
 
       - name: Set up JDK 17
