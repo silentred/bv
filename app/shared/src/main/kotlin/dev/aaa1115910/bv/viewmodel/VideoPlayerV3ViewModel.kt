@@ -273,7 +273,7 @@ class VideoPlayerV3ViewModel(
         }
     }
 
-    suspend fun updateAvailableCodec() {
+    private suspend fun updateAvailableCodec() {
         if (Prefs.apiType == ApiType.App && playData!!.codec.isEmpty()) {
             // 纠正当前实际播放的编码
             val videoItem = playData!!.dashVideos
@@ -308,7 +308,16 @@ class VideoPlayerV3ViewModel(
         qn: Resolution = currentQuality,
         codec: VideoCodec = currentVideoCodec,
         audio: Audio = currentAudio
-    ) = playQuality(qn.code, codec, audio)
+    ) {
+        if (qn != currentQuality) {
+            // 更新清晰度后需要先设置清晰度再更新编码列表
+            withContext(Dispatchers.Main) { currentQuality = qn }
+            updateAvailableCodec()
+            playQuality(qn.code, currentVideoCodec, audio)
+        } else {
+            playQuality(qn.code, codec, audio)
+        }
+    }
 
     private suspend fun playQuality(
         qn: Int = currentQuality.code,
@@ -500,7 +509,7 @@ class VideoPlayerV3ViewModel(
 
     fun loadSubtitle(id: Long) {
         viewModelScope.launch(Dispatchers.IO) {
-            if (id == 0L) {
+            if (id == -1L) {
                 withContext(Dispatchers.Main) {
                     currentSubtitleData.clear()
                     currentSubtitleId = -1
