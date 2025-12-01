@@ -61,7 +61,8 @@ class VideoPlayRepository(
                     qn = 127,
                     fnver = 0,
                     fourk = 1,
-                    sessData = authRepository.sessionData
+                    sessData = authRepository.sessionData,
+                    dedeUserID = authRepository.mid
                 ).getResponseData()
                 PlayData.fromPlayUrlData(playUrlData)
             }
@@ -130,7 +131,8 @@ class VideoPlayRepository(
                         qn = 127,
                         fnver = 0,
                         fourk = 1,
-                        sessData = authRepository.sessionData
+                        sessData = authRepository.sessionData,
+                        dedeUserID = authRepository.mid
                     )
                 } else {
                     BiliHttpApi.getPgcVideoPlayUrl(
@@ -140,7 +142,8 @@ class VideoPlayRepository(
                         qn = 127,
                         fnver = 0,
                         fourk = 1,
-                        sessData = authRepository.sessionData
+                        sessData = authRepository.sessionData,
+                        dedeUserID = authRepository.mid
                     )
                 }.getResponseData()
 

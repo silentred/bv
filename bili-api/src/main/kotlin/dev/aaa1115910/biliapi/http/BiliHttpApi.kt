@@ -32,6 +32,7 @@ import dev.aaa1115910.biliapi.http.entity.user.garb.Equip
 import dev.aaa1115910.biliapi.http.entity.user.garb.EquipPart
 import dev.aaa1115910.biliapi.http.entity.video.*
 import dev.aaa1115910.biliapi.http.entity.web.NavResponseData
+import dev.aaa1115910.biliapi.http.plugins.BiliUserAgent
 import dev.aaa1115910.biliapi.http.util.BiliAppConf
 import dev.aaa1115910.biliapi.http.util.encApiSign
 import io.ktor.client.HttpClient
@@ -85,7 +86,7 @@ object BiliHttpApi {
 
     private fun createClient() {
         client = HttpClient(OkHttp) {
-            BrowserUserAgent()
+            BiliUserAgent()
             install(ContentNegotiation) {
                 json(json)
             }
@@ -162,7 +163,8 @@ object BiliHttpApi {
         otype: String = "json",
         type: String = "",
         platform: String = "oc",
-        sessData: String? = null
+        sessData: String? = null,
+        dedeUserID: Long? = null
     ): BiliResponse<PlayUrlData> = client.get("/x/player/playurl") {
         require(av != null || bv != null) { "av and bv cannot be null at the same time" }
         parameter("avid", av)
@@ -176,7 +178,7 @@ object BiliHttpApi {
         parameter("otype", otype)
         parameter("type", type)
         parameter("platform", platform)
-        sessData?.let { header("Cookie", "SESSDATA=$sessData;") }
+        sessData?.let { header("Cookie", "SESSDATA=$sessData;DedeUserID=$dedeUserID") }
     }.body()
 
     /**
@@ -195,7 +197,8 @@ object BiliHttpApi {
         supportMultiAudio: Boolean? = null,
         drmTechType: Int? = null,
         fromClient: String? = null,
-        sessData: String? = null
+        sessData: String? = null,
+        dedeUserID: Long? = null
     ): BiliResponse<PlayUrlData> = client.get("/pgc/player/web/playurl") {
         require(av != null || bv != null) { "av and bv cannot be null at the same time" }
         require(epid != null || cid != null) { "epid and cid cannot be null at the same time" }
@@ -211,7 +214,7 @@ object BiliHttpApi {
         supportMultiAudio?.let { parameter("support_multi_audio", it) }
         drmTechType?.let { parameter("drm_tech_type", it) }
         fromClient?.let { parameter("from_client", it) }
-        sessData?.let { header("Cookie", "SESSDATA=$sessData;") }
+        sessData?.let { header("Cookie", "SESSDATA=$sessData;DedeUserID=$dedeUserID") }
         //必须得加上 referer 才能通过账号身份验证
         header("referer", "https://www.bilibili.com")
     }.body()

@@ -4,6 +4,7 @@ import dev.aaa1115910.biliapi.http.entity.BiliResponse
 import dev.aaa1115910.biliapi.http.entity.live.DanmuInfoData
 import dev.aaa1115910.biliapi.http.entity.live.HistoryDanmaku
 import dev.aaa1115910.biliapi.http.entity.live.RoomPlayInfoData
+import dev.aaa1115910.biliapi.http.plugins.BiliUserAgent
 import io.github.oshai.kotlinlogging.KotlinLogging
 import io.ktor.client.HttpClient
 import io.ktor.client.call.body
@@ -29,7 +30,7 @@ object BiliLiveHttpApi {
 
     private fun createClient() {
         client = HttpClient(OkHttp) {
-            BrowserUserAgent()
+            BiliUserAgent()
             install(ContentNegotiation) {
                 json(Json {
                     coerceInputValues = true

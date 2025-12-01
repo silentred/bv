@@ -41,6 +41,10 @@ import org.koin.core.context.startKoin
 import org.koin.core.logger.Level
 import org.koin.dsl.module
 import org.slf4j.impl.HandroidLoggerAdapter
+import android.os.Build
+import androidx.webkit.WebViewCompat
+import dev.aaa1115910.biliapi.http.util.BiliAppConf
+import dev.aaa1115910.biliapi.http.util.BiliWebConf
 
 class BVApp : Application() {
     companion object {
@@ -69,6 +73,7 @@ class BVApp : Application() {
         }
         initFirebase()
         LogCatcherUtil.installLogCatcher()
+        initApiConfig()
         initRepository()
         initProxy()
         instance = this
@@ -83,6 +88,15 @@ class BVApp : Application() {
             "debug" -> {}
             else -> FirebaseUtil.setCrashlyticsCollectionEnabled(Prefs.enableFirebaseCollection)
         }
+    }
+
+    private fun initApiConfig() {
+        BiliAppConf.osVersion = Build.VERSION.RELEASE
+        BiliAppConf.model = Build.MODEL
+        BiliWebConf.webViewVersion = runCatching {
+            WebViewCompat.getCurrentWebViewPackage(context)!!.versionName!!
+                .substringBefore(".").toInt()
+        }.getOrDefault(144)
     }
 
     fun initRepository() {
