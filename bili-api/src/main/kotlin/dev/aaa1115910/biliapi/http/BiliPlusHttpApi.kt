@@ -2,6 +2,7 @@ package dev.aaa1115910.biliapi.http
 
 import dev.aaa1115910.biliapi.http.entity.BiliResponse
 import dev.aaa1115910.biliapi.http.entity.biliplus.View
+import dev.aaa1115910.biliapi.http.plugins.BiliUserAgent
 import io.ktor.client.HttpClient
 import io.ktor.client.engine.okhttp.OkHttp
 import io.ktor.client.plugins.BrowserUserAgent
@@ -36,7 +37,7 @@ object BiliPlusHttpApi {
 
     private fun createClient() {
         client = HttpClient(OkHttp) {
-            BrowserUserAgent()
+            BiliUserAgent()
             install(ContentNegotiation) {
                 json(json)
             }
